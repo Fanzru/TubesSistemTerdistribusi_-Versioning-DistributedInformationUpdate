@@ -1,12 +1,13 @@
 # import SimpleXMLRPCServer
 from xmlrpc.server import SimpleXMLRPCServer
-
+# import json
+import json
 # import SimpleXMLRPCRequestHandler
 from xmlrpc.server import SimpleXMLRPCRequestHandler
 import threading
 
-mysql = "10.4.0"
-mongodb = "11.11.11"
+data_json = open('server.json')
+data = json.load(data_json)
 
 globvar = ""
 
@@ -26,7 +27,7 @@ class RequestHandler(SimpleXMLRPCRequestHandler):
 
 
 # Buat server
-with SimpleXMLRPCServer(("127.0.0.1", 8008), requestHandler=RequestHandler, allow_none=True) as server:
+with SimpleXMLRPCServer(("localhost", 8000), requestHandler=RequestHandler, allow_none=True) as server:
     server.register_introspection_functions()
 
     # kode setelah ini adalah critical section, menambahkan vote tidak boeh terjadi race condition
@@ -62,10 +63,10 @@ with SimpleXMLRPCServer(("127.0.0.1", 8008), requestHandler=RequestHandler, allo
         lock.acquire()
         if update_var == "mysql":
             lock.release()
-            return mysql
+            return data.get("mysql")
         elif update_var == "mongodb":
             lock.release()
-            return mongodb
+            return data.get("mongodb")
         else:
             lock.release()
             return "failed update"
