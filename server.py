@@ -27,7 +27,7 @@ class RequestHandler(SimpleXMLRPCRequestHandler):
 
 
 # Buat server
-with SimpleXMLRPCServer(("localhost", 8000), requestHandler=RequestHandler, allow_none=True) as server:
+with SimpleXMLRPCServer(("10.72.53.181", 1001), requestHandler=RequestHandler, allow_none=True) as server:
     server.register_introspection_functions()
 
     # kode setelah ini adalah critical section, menambahkan vote tidak boeh terjadi race condition
@@ -75,6 +75,6 @@ with SimpleXMLRPCServer(("localhost", 8000), requestHandler=RequestHandler, allo
     # register querry_result sebagai querry
     server.register_function(querry_result, "querry_result")
 
-    print("Server voting is Running...")
+    print("Server is Running...")
     # Jalankan server
     server.serve_forever()
