@@ -3,7 +3,7 @@ import xmlrpc.client
 import json
 
 # buat stub (proxy) untuk client
-server = xmlrpc.client.ServerProxy('http://localhost:8000')
+server = xmlrpc.client.ServerProxy('http://localhost:1001')
 #untuk membaca dan meload database client yang disimpan pada file client.json
 f = open('client.json')
 data_client = json.load(f)

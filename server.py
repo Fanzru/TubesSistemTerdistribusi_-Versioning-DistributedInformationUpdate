@@ -75,6 +75,6 @@ with SimpleXMLRPCServer(("10.72.53.181", 1001), requestHandler=RequestHandler, a
     # register querry_result sebagai querry
     server.register_function(querry_result, "querry_result")
 
-    print("Server is Running...")
+    print("Server voting is Running...")
     # Jalankan server
     server.serve_forever()
